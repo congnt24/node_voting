@@ -1,0 +1,27 @@
+{
+  "name": "node_voting",
+  "version": "1.0.0",
+  "description": "freecodecame exercise",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-register": "^6.24.1",
+    "bluebird": "^3.5.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "expressworks": "^3.4.1",
+    "jade": "~1.11.0",
+    "mongodb": "^2.2.29",
+    "morgan": "~1.8.1",
+    "node-twitter-api": "^1.8.0",
+    "serve-favicon": "~2.4.2"
+  }
+}

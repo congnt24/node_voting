@@ -1,0 +1,15 @@
+//
+   Created by apple on 6/29/17.
+
+header
+    div#header-left
+        p fcc-voting
+    div#header-right
+        a(href='/')
+            input(type="button", name="home", value="Home")
+        if !isAuthed
+            input(type="button", name="signin", value="Sign in with Twitter")#sign-in-with-twitter
+        else
+            input(type="button", name="username", value='#{username}')
+            a(href='/user/signout')
+                input(type="button", name="signout", value='Sign out')

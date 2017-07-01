@@ -1,0 +1,58 @@
+body {
+  max-width: 960px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  vertical-align: middle;
+  margin: auto;
+
+}
+
+header {
+  background: #F8F8F8;
+  padding: 5px;
+  border: solid 1px #E7E7E7;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 50px;
+}
+
+#header-left {
+  float: left;
+  width: 50%;
+}
+#header-right {
+  float: right;
+  width: 50%;
+}
+
+main {
+  margin: auto;
+}
+
+main .desc {
+  text-align: center;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/*table*/
+
+table {
+  width: 100%;
+  text-align: center;
+  border: solid 1px darkgrey;
+}
+table tr {
+
+  height: 30px;
+}
+
+table tr.header {
+  background: #00B7FF;
+}
+
+table tr.row {
+  background: #F8F8F8;
+}

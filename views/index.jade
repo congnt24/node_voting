@@ -1,0 +1,16 @@
+extends base
+block main
+  main
+    div.desc
+      h1 fcc-voting
+      p Below are polls hosted by fcc-voting.
+      br
+      p Select a poll to see the results and vote, or sign-in to make a new poll.
+      br
+    .main
+      table
+        tr.header
+          th Poll
+        for item in items
+          tr.row
+            td= item
