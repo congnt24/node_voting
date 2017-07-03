@@ -13,4 +13,5 @@ block main
           th Poll
         for item in items
           tr.row
-            td= item
+              td
+                a(href='/poll/#{item._id}')= item.QUESTION

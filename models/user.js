@@ -30,14 +30,14 @@ repository.find = function (email, callback) {
 }
 
 repository.create = function (email, password, firstName, lastName, displayName, callback) {
-    var userCol = db.collection(collection)
+    var userCol = db.get().collection(collection)
     user['EMAIL'] = email
     user['PASSWORD'] = password
     user['FIRST_NAME'] = firstName
     user['LAST_NAME'] = lastName
     user['DISPLAY_NAME'] = displayName
     user['STATE'] = 1
-    userCol.get().insertOne(user, [{json: true}], (err, docs) => {
+    userCol.insertOne(user, [{json: true}], (err, docs) => {
         callback(err, docs)
     })
 }

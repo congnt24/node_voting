@@ -1,0 +1,86 @@
+//Created by apple on 7/2/17.
+
+extends base
+block main
+    main
+        div.desc
+            h1 #{poll.QUESTION}
+        .main
+            span
+            select#select
+                - for (var i = 0; i < poll.OPTIONS.length; i++){
+                //a(href='/poll/'+ poll._id+'?index='+i) #{poll.OPTIONS[i]}
+                //br
+                option(value=i) #{poll.OPTIONS[i]}
+                - }
+            input#submit(type='submit' value='Submit')
+            br
+            input#share(type='submit' value='share')
+            canvas#myChart(width='400' height='400')
+            //if my poll, i can delete it
+            - if (poll.EMAIL == username){
+            a(href='/delete/#{poll._id}') REMOVE
+            - }
+
+            script.
+                $(function () {
+                    var user = '#{username}'
+                    $('#submit').on('click', function () {
+                        if (user) {
+                            fetch('/poll/' + '#{poll._id}' + '?index=' + $('#select option:selected').val()+'&user='+user)
+                                .then(function (p1) { return p1.json() })
+                                .then(function (p1) {
+                                    console.log(p1)
+                                    if (p1.status != 'success'){
+                                        alert('You\'re already voted this poll.')
+                                    }else{
+                                        window.location.href = window.location.href
+                                    }
+                                })
+                            //window.location.href = '/poll/' + '#{poll._id}' + '?index=' + $('#select option:selected').val()
+                        } else {
+                            alert('You have to login before voting.')
+                        }
+                    })
+
+                    $('#share').on('click', function () {
+                        var url = window.location.href
+                        window.location.href = 'https://twitter.com/intent/tweet?url='+url+'&text=#{poll.QUESTION}'
+                    })
+                })
+
+            script.
+                var ctx = document.getElementById("myChart").getContext('2d');
+                ctx.height = 200;
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: '#{poll.OPTIONS}'.split(','),
+                        datasets: [{
+                            label: '# of Votes',
+                            data: '#{poll.RATES}'.split(','),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        maintainAspectRatio: true
+                    }
+                });
+

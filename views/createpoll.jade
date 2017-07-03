@@ -1,0 +1,17 @@
+//
+   Created by apple on 7/2/17.
+
+extends base
+block main
+    main
+        div.desc
+            h1 fcc-voting
+        .main
+            form(method='post' action='/user/createpoll')
+                span Question:
+                input(type='text' name='question' placeholder='poll')
+                br
+                span Options:
+                textarea(type='text' name='options' placeholder='separate by semicolon new line')
+                br
+                input(type='submit' name='submit' value='Submit')

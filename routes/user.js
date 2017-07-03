@@ -6,6 +6,7 @@
 var express = require('express')
 var Twitter = require('node-twitter-api'), config = require("../configs/config");
 var User = require('../models/user')
+var Poll = require('../models/poll')
 
 
 
@@ -21,7 +22,20 @@ var twitter = new Twitter({
 
 
 router.get('/', function (req, res, next) {
-    res.render('index', {title: "Express", items: ['asdasd', 'asdasdsad']})
+    console.log(req.session.user);
+    if (req.session.user) {
+        Poll.findByEmail(req.session.user, (err, doc) => {
+            if (err) {
+                return null
+            }
+            console.log(doc)
+            res.render('index', {title: "Express", items: doc})
+
+        })
+    }else {
+        res.render('index', {title: "Express", items: ['asdasd', 'asdasdsad']})
+    }
+
 })
 
 var _requestSecret
@@ -51,7 +65,7 @@ router.get('/access-token', function (req, res, next) {
                     res.status(500).send(err)
                 } else {
                     User.find(user.screen_name, function (err, docs) {
-                        if (err) {
+                        if (err || docs == null) {
                             //if not have in db, save to db
                             User.create(user.screen_name, '', user.name, user.name, user.name, function (err, docs) {
                                 if (err) {
@@ -59,23 +73,48 @@ router.get('/access-token', function (req, res, next) {
                                 } else {
                                     //save session
                                     req.session.user = docs.ops[0].EMAIL
-                                    req.session.save()
                                     res.redirect('/')
                                 }
                             })
-                        }
-                        else {
+                        } else {
                             //login
                             req.session.user = docs.EMAIL
-                            req.session.save()
                             res.redirect('/')
                         }
+
+                        req.session.accessToken = accessToken
+                        req.session.accessSecret = accessSecret
+                        req.session.save()
                     })
                 }
             })
         }
     })
 })
+
+//create poll
+router.get('/createpoll', function (req, res, next) {
+    if (req.session.user) {
+        res.render('createpoll')
+    }else{
+        res.sendStatus(201)
+    }
+})
+
+router.post('/createpoll', function (req, res, next) {
+    if (req.session.user && req.body) {
+        Poll.create(req.session.user, req.body.question
+            , req.body.options.split(/\r*\n/), (err, doc) => {
+            if (err) {
+                res.sendStatus(500)
+            }
+            res.redirect('/')
+        })
+    }else{
+        next()
+    }
+})
+
 
 router.get('/signout', function(req, res, next){
     if (req.session && req.session.user) {

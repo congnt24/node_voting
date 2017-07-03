@@ -11,5 +11,9 @@ header
             input(type="button", name="signin", value="Sign in with Twitter")#sign-in-with-twitter
         else
             input(type="button", name="username", value='#{username}')
+            a(href='/user')
+                input(type="button", name="mypoll", value='My Poll')
+            a(href='/user/createpoll')
+                input(type="button", name="createpoll", value='Create Poll')
             a(href='/user/signout')
                 input(type="button", name="signout", value='Sign out')
