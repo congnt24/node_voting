@@ -2,9 +2,9 @@
  * Created by apple on 6/29/17.
  */
 exports.twitter = {
-    consumerKey: 'atinwVCoBngseRDWcjktiPdea',
-    consumerSecret: '7j6mn521LtoYfNulxwIa4O3Wl1qkenLg5qn2lb1Vg5Vkjsnqku',
-    callbackUrl: 'http://localhost:3000/user/access-token'
+    consumerKey: '1iG5Ml1hqd2uppHJvqf6VvuRg',
+    consumerSecret: '1Leiqqrjj58uAZjbaxoTCDqUKGpG7UR6PUzg7OBnORDASYDi9Z',
+    callbackUrl: 'https://congntvoting.herokuapp.com/user/access-token'
 }
 
 exports.mongo = {
