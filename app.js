@@ -14,7 +14,7 @@ var db = require('./db')
 var config = require('./configs/config')
 var app = express()
 
-
+var port = process.env.PORT || 8080;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -72,4 +72,6 @@ app.use(function (err, req, res, next) {
 
 
 module.exports = app;
-app.listen(3000)
+app.listen(port, () => {
+    console.log('Server is running... '+port);
+})
